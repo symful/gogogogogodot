@@ -16,10 +16,6 @@ func _ready():
 	sprite.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 	sprite.alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
 	
-	# Force attacks to be non-looping
-	sprite.sprite_frames.set_animation_loop("attack1", false)
-	sprite.sprite_frames.set_animation_loop("attack2", false)
-	
 	# Connect signals in code
 	sprite.animation_finished.connect(_on_animated_sprite_3d_animation_finished)
 	sprite.frame_changed.connect(_on_animated_sprite_3d_frame_changed)
