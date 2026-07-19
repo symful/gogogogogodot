@@ -2,7 +2,6 @@ extends Area3D
 
 @export_file("*.scn") var target_world_path: String
 @export var target_point_name: String = ""
-@export var location_name: String = "Unknown Region"
 
 @export_enum("Micro (Instant/Fast)", "Macro (Fade/Load)") var warp_type: int = 1
 
@@ -31,12 +30,17 @@ func _unhandled_input(event):
 			push_warning("Warp Point missing target path!")
 			return
 			
-		# Update the GameManager's metadata before warping
-		GameManager.current_location_name = location_name
+		# Update the GameManager's metadata before warpingif player_in_zone and event.is_action_pressed("interact"):
+		get_viewport().set_input_as_handled() 
 		
+		if target_world_path == "":
+			push_warning("Warp Point missing target path!")
+			return
+			
 		if warp_type == 0:
 			print("Executing fast micro-warp...")
 		else:
 			print("Executing heavy macro-warp...")
 			
 		GameManager.warp_to_new_area(target_world_path, target_point_name)
+		

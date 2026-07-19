@@ -15,15 +15,25 @@ var current_world: Node3D = null
 
 func start_new_game():
 	_transition_to_world(NEW_GAME_WORLD, "", NEW_GAME_SPAWN_POS)
+	_update_location_name()
 	
 func load_saved_game(saved_world_path: String, saved_position: Vector3):
 	_transition_to_world(saved_world_path, "", saved_position)
+	_update_location_name()
 
-func warp_to_new_area(new_world_path: String, target_marker_name: String):
-	_transition_to_world(new_world_path, target_marker_name, Vector3.ZERO)
+func warp_to_new_area(new_world_path: String, target_warp_name: String):
+	_transition_to_world(new_world_path, target_warp_name, Vector3.ZERO)
+	_update_location_name()
+
+# Consolidate the name checking to avoid instantiating ghost worlds
+func _update_location_name():
+	if current_world and "location_name" in current_world:
+		current_location_name = current_world.location_name
+	else:
+		current_location_name = "Unknown Region"
 
 # The core engine that swaps levels
-func _transition_to_world(world_path: String, marker_name: String, fallback_pos: Vector3):
+func _transition_to_world(world_path: String, target_warp_name: String, fallback_pos: Vector3):
 	if current_world:
 		current_world.queue_free()
 		await current_world.tree_exited 
@@ -32,11 +42,19 @@ func _transition_to_world(world_path: String, marker_name: String, fallback_pos:
 	current_world = next_world_scene.instantiate()
 	world_container.add_child(current_world)
 	
-	if marker_name != "":
-		var marker = current_world.find_child(marker_name, true, false)
-		if marker and marker is Marker3D:
-			player.global_position = marker.global_position
-			player.global_rotation = marker.global_rotation
+	if target_warp_name != "":
+		# 1. Find the Warp Point (Area3D)
+		var warp_node = current_world.find_child(target_warp_name, true, false)
+		if warp_node:
+			# 2. Grab the SpawnPosition (Marker3D) specifically from INSIDE that Warp Point
+			var spawn_pos = warp_node.get_node_or_null("SpawnPosition")
+			if spawn_pos and spawn_pos is Marker3D:
+				player.global_position = spawn_pos.global_position
+				player.global_rotation = spawn_pos.global_rotation
+			else:
+				push_error("FAILED: 'SpawnPosition' missing inside warp point: ", target_warp_name)
+		else:
+			push_error("FAILED: Could not find warp point named: ", target_warp_name)
 	else:
 		player.global_position = fallback_pos
 		
@@ -47,7 +65,6 @@ func _process(delta):
 	# Track playtime in seconds
 	playtime += delta
 
-# --- REPLACE save_game() ---
 func save_game():
 	var save_data = {
 		"metadata": {

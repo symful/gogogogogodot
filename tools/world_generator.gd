@@ -2,11 +2,12 @@
 extends EditorScript
 
 var base_scene_path = "res://worlds/BaseWorld/base_world.scn"
-var new_world_name = "DesertWorld"
+var new_world_name = "ForestWorld"
+
+# 0: FREE_ROAM
+# 1: ROOM_ROAM
+# 2: BATTLE
 var world_type = 0 
-# 0: Free Roam
-# 1: Room Roam
-# 2: Battle
 
 func _run():
 	if not FileAccess.file_exists(base_scene_path):
@@ -23,25 +24,18 @@ func _run():
 
 	var base_packed = load(base_scene_path)
 	
-	# --- THIS IS THE MAGIC FIX ---
-	# Passing GEN_EDIT_STATE_INSTANCE safely maintains all correct ownership flags.
-	# It prevents instanced scenes from duplicating and ignores temporary plugin nodes.
 	var new_scene = base_packed.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
 	new_scene.name = new_world_name
-	# -----------------------------
+	
+	# --- THE NEW INJECTION LOGIC ---
+	# We safely check if the root node has the variable, then assign the enum integer
+	if "current_mode" in new_scene:
+		new_scene.current_mode = world_type
+	# -------------------------------
 	
 	var terrain = new_scene.get_node_or_null("Terrain3D")
 	if terrain:
-		# 1. UNIQUE DATA: Keep this so sculpting and painted splatmaps remain unique per world
 		terrain.data_directory = data_dir
-		
-		# 2. UNIQUE MATERIAL: (Optional) Keep this ONLY if you want different 
-		# shader settings (like different water colors or macro variations) per world.
-		if terrain.material:
-			var new_mat = terrain.material.duplicate(true)
-			var mat_path = base_dir + "/" + snake_name + "_material.tres"
-			ResourceSaver.save(new_mat, mat_path)
-			terrain.material = load(mat_path)
 
 	var packed = PackedScene.new()
 	var err = packed.pack(new_scene)
@@ -52,6 +46,3 @@ func _run():
 		EditorInterface.get_resource_filesystem().scan()
 	else:
 		push_error("Failed to pack scene: ", err)
-
-# NOTE: The _clear_owner_recursive and _set_owner_recursive functions 
-# have been completely deleted! You no longer need them.

@@ -3,6 +3,7 @@ class_name BaseWorld
 
 enum WorldMode { FREE_ROAM, ROOM_ROAM, BATTLE }
 
+@export var location_name: String = "Unknown Region"
 @export var current_mode: WorldMode = WorldMode.FREE_ROAM
 
 func _ready():

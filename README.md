@@ -12,6 +12,11 @@ Attack: JK<br />
 3. Edit `new_world_name`
 4. Klik kanan file script
 5. Klik `run`
+6. Ke folder `res://worlds/`
+7. Cari folder worldnya
+8. Klik file scene worldnya yang berakhiran `.scn`
+9. Ke tab kanan (Inspector)
+10. Edit nama lokasi
 
 ## Cara Buat Save Point
 1. Drag and drop `res://points/SavePoint/save_point.scn` ke node `SavePoints` sebagai children di scene world
@@ -31,22 +36,20 @@ Attack: JK<br />
 8. Ke tab kanan
 9. Ganti `Target World Path` ke path file world kedua
 10. Ganti `Target Point Name` ke nama warp point di world kedua
-11. Ganti `Location Name`
-12. Ganti `Warp Type` bila perlu
-13. Ke scene world kedua
-14. Drag and drop `res://points/WarpPoint/warp_point.scn` ke node `WarpPoints` sebagai children di scene world kedua
-15. Ke tab `3D` 
-16. Drag and drop lokasi warp pointnya
-17. Rename warp point world kedua ke warp point yang digunakan pada kolom `Target Point Name` di warp point world pertama
-18. Ceklis `Editable Children`
-19. Klik node warp point world keduanya
-20. Ke tab kanan
-21. Ganti `Target World Path` ke path file world pertama
-22. Ganti `Target Point Name` ke nama warp point di world pertama
-23. Ganti `Location Name`
-24. Ganti `Warp Type` bila perlu
-25. Kamu bisa memindahkan posisi `SpawnPosition` karena sudah meceklis `Editable Children`
-26. Save kedua world
+11. Ganti `Warp Type` bila perlu
+12. Ke scene world kedua
+13. Drag and drop `res://points/WarpPoint/warp_point.scn` ke node `WarpPoints` sebagai children di scene world kedua
+14. Ke tab `3D` 
+15. Drag and drop lokasi warp pointnya
+16. Rename warp point world kedua ke warp point yang digunakan pada kolom `Target Point Name` di warp point world pertama
+17. Ceklis `Editable Children`
+18. Klik node warp point world keduanya
+19. Ke tab kanan
+20. Ganti `Target World Path` ke path file world pertama
+21. Ganti `Target Point Name` ke nama warp point di world pertama
+22. Ganti `Warp Type` bila perlu
+23. Kamu bisa memindahkan posisi `SpawnPosition` karena sudah meceklis `Editable Children`
+24. Save kedua world
 
 ## Cara Mengedit World
 1. Klik scene world
