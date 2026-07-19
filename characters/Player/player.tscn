@@ -563,7 +563,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"attack1_down",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -592,7 +592,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"attack1_left",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -621,7 +621,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"attack1_right",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -650,7 +650,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"attack1_up",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -679,7 +679,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"attack2_down",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -708,7 +708,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"attack2_left",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -737,7 +737,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"attack2_right",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -766,7 +766,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"attack2_up",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1018,7 +1018,7 @@ shape = SubResource("CapsuleShape3D_4kxuq")
 pixel_size = 0.05
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_4kxuq")
-animation = &"attack2_up"
+animation = &"attack2_right"
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1986397767 node_paths=PackedStringArray("target")]
 transform = Transform3D(0.7071068, -0.5, 0.5, 0, 0.7071068, 0.70710677, -0.7071068, -0.5, 0.5, 8.202707, 10.731251, 7.644046)
