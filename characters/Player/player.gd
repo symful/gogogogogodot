@@ -1,6 +1,8 @@
 extends CharacterBody3D
 
 @export var speed := 5.0
+@export var attack_speed_multiplier := 0.5  # movement speed while attacking
+
 @onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -8,20 +10,32 @@ var state := "idle"
 var direction := "down"
 
 func _ready():
-	sprite.billboard = BaseMaterial3D.BILLBOARD_FIXED_Y 
+	# Visual setup
+	sprite.billboard = BaseMaterial3D.BILLBOARD_FIXED_Y
 	sprite.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 	sprite.alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
+	
+	# Force attacks to be non-looping (just in case)
+	sprite.sprite_frames.set_animation_loop("attack1", false)
+	sprite.sprite_frames.set_animation_loop("attack2", false)
+	
+	# --- CONNECT SIGNALS IN CODE (This fixes your issue!) ---
+	sprite.animation_finished.connect(_on_animated_sprite_3d_animation_finished)
+	sprite.frame_changed.connect(_on_animated_sprite_3d_frame_changed)
 
 func _physics_process(delta):
 	var camera := get_viewport().get_camera_3d()
 	if camera == null:
 		return
 
+	# Gravity
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
+	# Input
 	var input_2d := Input.get_vector("left", "right", "up", "down")
 
+	# Camera-relative movement directions
 	var cam_forward := -camera.global_transform.basis.z
 	var cam_right := camera.global_transform.basis.x
 	cam_forward.y = 0
@@ -36,52 +50,57 @@ func _physics_process(delta):
 
 	var is_moving := move_dir != Vector3.ZERO
 
-	# Lock movement if attacking
+	# Determine current speed (reduced if attacking)
+	var current_speed = speed
 	if state == "attack1" or state == "attack2":
-		velocity.x = move_toward(velocity.x, 0, speed)
-		velocity.z = move_toward(velocity.z, 0, speed)
-		move_and_slide()
-		return # Let the attack finish
+		current_speed = speed * attack_speed_multiplier
 
+	# --- Movement (always runs) ---
 	if is_moving:
-		velocity.x = move_dir.x * speed
-		velocity.z = move_dir.z * speed
+		velocity.x = move_dir.x * current_speed
+		velocity.z = move_dir.z * current_speed
 		direction = get_direction_relative_to_camera(move_dir)
-		state = "run"
+		if state != "attack1" and state != "attack2":
+			state = "run"
 	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
-		velocity.z = move_toward(velocity.z, 0, speed)
-		state = "idle"
-		
+		velocity.x = move_toward(velocity.x, 0, current_speed)
+		velocity.z = move_toward(velocity.z, 0, current_speed)
+		if state != "attack1" and state != "attack2":
+			state = "idle"
+
 	move_and_slide()
 
-	if Input.is_action_just_pressed("attack1"):
-		state = "attack1"
-	elif Input.is_action_just_pressed("attack2"):
-		state = "attack2"
+	# --- Attack Input (only if not already attacking) ---
+	if state != "attack1" and state != "attack2":
+		if Input.is_action_just_pressed("attack1"):
+			state = "attack1"
+		elif Input.is_action_just_pressed("attack2"):
+			state = "attack2"
 
-	# Dynamically play the correct animation (e.g., "run_down")
+	# --- Play the correct animation ---
 	var anim_name = state + "_" + direction
 	sprite.play(anim_name)
 
-# --- Connecting the Combat Hitboxes Later ---
-# We will use this built-in signal function to turn hitboxes on and off via code!
-func _on_animated_sprite_3d_frame_changed():
-	if state == "attack1":
-		if sprite.frame == 3:
-			pass # Turn hitbox ON
-		elif sprite.frame == 6:
-			pass # Turn hitbox OFF
-
-# Reset to idle when the attack animation finishes
+# --- This function now DEFINITELY gets called when an animation finishes ---
 func _on_animated_sprite_3d_animation_finished():
 	if state == "attack1" or state == "attack2":
 		state = "idle"
+		# IMPORTANT: Immediately switch to idle so it doesn't freeze on the last frame
+		sprite.play("idle_" + direction)
 
+# --- Hitbox control via animation frame events ---
+func _on_animated_sprite_3d_frame_changed():
+	if state == "attack1":
+		if sprite.frame == 3:
+			pass  # Turn hitbox ON
+		elif sprite.frame == 6:
+			pass  # Turn hitbox OFF
+
+# --- Helper: direction string relative to camera ---
 func get_direction_relative_to_camera(move_dir: Vector3) -> String:
 	var camera := get_viewport().get_camera_3d()
 	if camera == null:
-		return direction 
+		return direction
 
 	var cam_forward := -camera.global_transform.basis.z
 	var cam_right := camera.global_transform.basis.x
