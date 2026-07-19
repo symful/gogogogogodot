@@ -52,3 +52,9 @@ Attack: JK
 2. Klik node `Terrain3D`
 3. Buka https://www.youtube.com/watch?v=ejlD8cM9kk4
 4. Save world
+
+## Cara Mengedit Terrain3D Meshes/Texture
+1. Klik scene `res://worlds/BaseWorld/base_world.scn`
+2. Klik node `Terrain3D`
+3. Edit seperlunya
+4. Save world
