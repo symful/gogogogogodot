@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://ceha040r36a2h"]
+
+[ext_resource type="Texture2D" uid="uid://da0suwwius80j" path="res://assets/environments/models/Leaf_Pine_C.png" id="1_m80ju"]
+
+[resource]
+resource_name = "Leaves_Pine"
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_m80ju")
+texture_filter = 0

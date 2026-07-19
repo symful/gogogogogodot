@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://1564075rtlw7"]
+
+[ext_resource type="Texture2D" uid="uid://bvxov3uho8mri" path="res://assets/environments/models/Bark_DeadTree.png" id="1_p7od5"]
+[ext_resource type="Texture2D" uid="uid://bqq5rpfdwthgq" path="res://assets/environments/models/Bark_DeadTree_Normal.png" id="2_ptt5i"]
+
+[resource]
+resource_name = "Bark_DeadTree"
+albedo_texture = ExtResource("1_p7od5")
+normal_enabled = true
+normal_texture = ExtResource("2_ptt5i")
+texture_filter = 0

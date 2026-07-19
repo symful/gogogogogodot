@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://d26f2l7spb2uo"]
+
+[ext_resource type="Texture2D" uid="uid://dtmp1ioawnf5e" path="res://assets/environments/models/Bark_TwistedTree.png" id="1_jvs8t"]
+[ext_resource type="Texture2D" uid="uid://cnwbf188m78wv" path="res://assets/environments/models/Bark_TwistedTree_Normal.png" id="2_l51b8"]
+
+[resource]
+resource_name = "Bark_TwistedTree"
+albedo_texture = ExtResource("1_jvs8t")
+normal_enabled = true
+normal_texture = ExtResource("2_l51b8")
+texture_filter = 0

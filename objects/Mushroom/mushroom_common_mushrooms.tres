@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://blr0vuylpcyrw"]
+
+[ext_resource type="Texture2D" uid="uid://djv7icf6sfbou" path="res://assets/environments/models/Mushrooms.png" id="1_x0y33"]
+
+[resource]
+resource_name = "Mushrooms"
+albedo_texture = ExtResource("1_x0y33")
+texture_filter = 0

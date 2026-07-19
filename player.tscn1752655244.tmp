@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://ckudr8chj1kgo"]
+
+[ext_resource type="Texture2D" uid="uid://c74nrecm37nlq" path="res://assets/characters/main/Sprites/IDLE/idle_down.png" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://b4cayowt8oakv" path="res://Player.gd" id="1_onrkg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4kxuq"]
+height = 1.8
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=811025692]
+script = ExtResource("1_onrkg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=657013822]
+shape = SubResource("CapsuleShape3D_4kxuq")
+
+[node name="Sprite" type="Sprite3D" parent="." unique_id=244093282]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.172325e-06, -0.0023388565, 0.000677228)
+offset = Vector2(0, -0.8)
+pixel_size = 0.05
+billboard = 1
+texture_filter = 0
+texture = ExtResource("1_4flbx")
+hframes = 8

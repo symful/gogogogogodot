@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b2i0wa6cqdjra"]
+
+[ext_resource type="Texture2D" uid="uid://cxwoj2uqwh3mh" path="res://assets/environments/models/Leaves_NormalTree_C.png" id="1_hkfbr"]
+
+[resource]
+resource_name = "Leaves_NormalTree"
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_hkfbr")
+texture_filter = 0

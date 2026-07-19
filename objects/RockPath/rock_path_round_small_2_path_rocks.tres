@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://codp6tauqq5u6"]
+
+[ext_resource type="Texture2D" uid="uid://bdtsp5ricjahy" path="res://assets/environments/models/PathRocks_Diffuse.png" id="1_tc4j7"]
+
+[resource]
+resource_name = "PathRocks"
+albedo_texture = ExtResource("1_tc4j7")
+texture_filter = 0

@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://djb2ubypqgt64"]
+
+[ext_resource type="Texture2D" uid="uid://b7xkehdmcaqyw" path="res://assets/environments/models/Leaves.png" id="1_16y5x"]
+
+[resource]
+resource_name = "Leaves"
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_16y5x")
+texture_filter = 0

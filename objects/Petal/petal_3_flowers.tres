@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cmab5udtrv7db"]
+
+[ext_resource type="Texture2D" uid="uid://b83n20orbl8en" path="res://assets/environments/models/Flowers.png" id="1_r3jll"]
+
+[resource]
+resource_name = "Flowers"
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_r3jll")
+texture_filter = 0
