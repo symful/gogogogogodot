@@ -1,7 +1,8 @@
 extends CharacterBody3D
 
 @export var speed := 5.0
-@export var attack_speed_multiplier := 0.5  # movement speed while attacking
+@export var attack_speed_multiplier := 0.5  # Movement speed while attacking (0.5 = half speed)
+@export var attack_animation_speed := 2.0   # How fast the attack animation plays (2.0 = twice as fast)
 
 @onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
 
@@ -15,11 +16,11 @@ func _ready():
 	sprite.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 	sprite.alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
 	
-	# Force attacks to be non-looping (just in case)
+	# Force attacks to be non-looping
 	sprite.sprite_frames.set_animation_loop("attack1", false)
 	sprite.sprite_frames.set_animation_loop("attack2", false)
 	
-	# --- CONNECT SIGNALS IN CODE (This fixes your issue!) ---
+	# Connect signals in code
 	sprite.animation_finished.connect(_on_animated_sprite_3d_animation_finished)
 	sprite.frame_changed.connect(_on_animated_sprite_3d_frame_changed)
 
@@ -77,15 +78,21 @@ func _physics_process(delta):
 		elif Input.is_action_just_pressed("attack2"):
 			state = "attack2"
 
+	# --- ADJUST SPEED SCALE FOR FASTER ATTACKS ---
+	if state == "attack1" or state == "attack2":
+		sprite.speed_scale = attack_animation_speed
+	else:
+		sprite.speed_scale = 1.0  # Normal speed for idle/run
+
 	# --- Play the correct animation ---
 	var anim_name = state + "_" + direction
 	sprite.play(anim_name)
 
-# --- This function now DEFINITELY gets called when an animation finishes ---
+# --- Reset to idle when attack finishes ---
 func _on_animated_sprite_3d_animation_finished():
 	if state == "attack1" or state == "attack2":
 		state = "idle"
-		# IMPORTANT: Immediately switch to idle so it doesn't freeze on the last frame
+		# Instantly switch to idle so it doesn't freeze on the last frame
 		sprite.play("idle_" + direction)
 
 # --- Hitbox control via animation frame events ---
