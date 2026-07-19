@@ -4,6 +4,9 @@ extends EditorScript
 var base_scene_path = "res://worlds/BaseWorld/base_world.scn"
 var new_world_name = "DesertWorld"
 var world_type = 0 
+# 0: Free Roam
+# 1: Room Roam
+# 2: Battle
 
 func _run():
 	if not FileAccess.file_exists(base_scene_path):
