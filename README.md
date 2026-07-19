@@ -1,10 +1,10 @@
 # JRPG
 
 ## Control
-Move: WASD
-Interact: Enter
-Camera: Left/Right Arrow
-Attack: JK
+Move: WASD<br />
+Interact: Enter<br />
+Camera: Left/Right Arrow<br />
+Attack: JK<br />
 
 ## Cara Buat World
 1. Ke folder `res://tools/`
