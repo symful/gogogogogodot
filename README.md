@@ -46,3 +46,9 @@ Attack: JK
 23. Ganti `Location Name`
 24. Ganti `Warp Type` bila perlu
 25. Save kedua world
+
+## Cara Mengedit World
+1. Klik scene world
+2. Klik node `Terrain3D`
+3. Buka https://www.youtube.com/watch?v=ejlD8cM9kk4
+4. Save world
