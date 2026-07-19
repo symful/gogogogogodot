@@ -45,7 +45,8 @@ Attack: JK
 22. Ganti `Target Point Name` ke nama warp point di world pertama
 23. Ganti `Location Name`
 24. Ganti `Warp Type` bila perlu
-25. Save kedua world
+25. Kamu bisa memindahkan posisi `SpawnPosition` karena sudah meceklis `Editable Children`
+26. Save kedua world
 
 ## Cara Mengedit World
 1. Klik scene world
